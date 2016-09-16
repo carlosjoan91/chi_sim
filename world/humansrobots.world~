@@ -1,0 +1,53 @@
+# Desc: Olsen 4th floor stage simulation config
+
+# defines robots
+include "jr.inc"
+
+# defines 'map' object used for floorplans
+include "map.inc"
+
+# defines sick laser scanner
+include "sick.inc"
+
+# defines urg laser scanner
+include "urg.inc"
+
+#include "ptz.inc"
+
+# set the resolution of the underlying raytrace model in meters
+name "olsen"
+resolution 0.025
+
+interval_sim 200
+interval_real 200
+threads 8
+# configure the GUI window
+window( 
+  size [ 689 537 ] 
+  center [-20.894 -1.457]
+  scale 19.124 
+)
+
+
+# load an environment bitmap
+map( 
+  bitmap "humansrobots.png"
+  #added so that 0,0 corresponds to the lower left corner, remove next line to center on origin
+  #pose [39.55 13.50 0.000 0.000]
+  size [79.075 27.000 1.500]
+  name "lab"
+)
+
+
+# create a robot
+# This is a atrv with a Sick ranger that supports fiducial recognition
+atrvjr(
+  name "robot_brain_1"
+  color "red"
+  #pose [-21.849 -9.236 0.000 90.000]
+  pose [13.700 14.300 0.000 90.000]
+  sick_laser( )
+  urg_laser( )
+  #atrv_ptz ()
+  watchdog_timeout -1.0
+)

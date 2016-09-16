@@ -1,0 +1,139 @@
+<launch>
+  <param name="/use_sim_time" value="true" />
+
+  <!-- Map server (occupancy grid)-->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find chi_sim)/maps/robots.yaml" />
+
+  <!-- Stage (not namespaced in case we decide to run with more than one simulated robot)-->
+  <node pkg="stage_ros" type="stageros" name="stageros" args="$(find chi_sim)/world/robots.world" respawn="false">
+    <remap from="robot_0/base_scan_0" to="robot_brain_0/scan_sick" />
+    <remap from="robot_0/base_scan_1" to="robot_brain_0/scan_urg" />
+    <remap from="robot_0/cmd_vel" to="robot_brain_0/cmd_vel" />
+    <remap from="robot_0/odom" to="robot_brain_0/odom" />
+    <remap from="robot_0/base_pose_ground_truth" to="robot_brain_0/base_pose_ground_truth" />
+
+    <remap from="robot_1/base_scan_0" to="robot_brain_1/scan_sick" />
+    <remap from="robot_1/base_scan_1" to="robot_brain_1/scan_urg" />
+    <remap from="robot_1/cmd_vel" to="robot_brain_1/cmd_vel" />
+    <remap from="robot_1/odom" to="robot_brain_1/odom" />
+    <remap from="robot_1/base_pose_ground_truth" to="robot_brain_1/base_pose_ground_truth" />
+
+    <remap from="robot_2/base_scan_0" to="robot_brain_2/scan_sick" />
+    <remap from="robot_2/base_scan_1" to="robot_brain_2/scan_urg" />
+    <remap from="robot_2/cmd_vel" to="robot_brain_2/cmd_vel" />
+    <remap from="robot_2/odom" to="robot_brain_2/odom" />
+    <remap from="robot_2/base_pose_ground_truth" to="robot_brain_2/base_pose_ground_truth" />
+
+    <remap from="robot_3/base_scan_0" to="robot_brain_3/scan_sick" />
+    <remap from="robot_3/base_scan_1" to="robot_brain_3/scan_urg" />
+    <remap from="robot_3/cmd_vel" to="robot_brain_3/cmd_vel" />
+    <remap from="robot_3/odom" to="robot_brain_3/odom" />
+    <remap from="robot_3/base_pose_ground_truth" to="robot_brain_3/base_pose_ground_truth" />
+
+    <remap from="robot_4/base_scan_0" to="robot_brain_4/scan_sick" />
+    <remap from="robot_4/base_scan_1" to="robot_brain_4/scan_urg" />
+    <remap from="robot_4/cmd_vel" to="robot_brain_4/cmd_vel" />
+    <remap from="robot_4/odom" to="robot_brain_4/odom" />
+    <remap from="robot_4/base_pose_ground_truth" to="robot_brain_4/base_pose_ground_truth" />
+
+    <remap from="robot_5/base_scan_0" to="robot_brain_5/scan_sick" />
+    <remap from="robot_5/base_scan_1" to="robot_brain_5/scan_urg" />
+    <remap from="robot_5/cmd_vel" to="robot_brain_5/cmd_vel" />
+    <remap from="robot_5/odom" to="robot_brain_5/odom" />
+    <remap from="robot_5/base_pose_ground_truth" to="robot_brain_5/base_pose_ground_truth" />
+  </node>
+
+  <node name="fake_localization" pkg="fake_localization" type="fake_localization" ns="robot_brain_0" output="screen" >
+    <param name="odom_frame_id" value = "robot_0/odom" />
+    <param name="base_frame_id" value = "robot_0/base_link" />
+  </node>
+  <node name="fake_localization" pkg="fake_localization" type="fake_localization" ns="robot_brain_1" output="screen" >
+    <param name="odom_frame_id" value = "robot_1/odom" />
+    <param name="base_frame_id" value = "robot_1/base_link" />
+  </node>
+  <node name="fake_localization" pkg="fake_localization" type="fake_localization" ns="robot_brain_2" output="screen" >
+    <param name="odom_frame_id" value = "robot_2/odom" />
+    <param name="base_frame_id" value = "robot_2/base_link" />
+  </node>
+  <node name="fake_localization" pkg="fake_localization" type="fake_localization" ns="robot_brain_3" output="screen" >
+    <param name="odom_frame_id" value = "robot_3/odom" />
+    <param name="base_frame_id" value = "robot_3/base_link" />
+  </node>
+  <node name="fake_localization" pkg="fake_localization" type="fake_localization" ns="robot_brain_4" output="screen" >
+    <param name="odom_frame_id" value = "robot_4/odom" />
+    <param name="base_frame_id" value = "robot_4/base_link" />
+  </node>
+  <node name="fake_localization" pkg="fake_localization" type="fake_localization" ns="robot_brain_5" output="screen" >
+    <param name="odom_frame_id" value = "robot_5/odom" />
+    <param name="base_frame_id" value = "robot_5/base_link" />
+  </node>
+
+
+  <node pkg="move_base" type="move_base" ns="robot_brain_0" respawn="false" name="move_base" output="screen">
+    <remap from="map" to="/map" />
+
+    <rosparam file="$(find chi_sim)/config/robot0/navfn_params.yaml" command="load"/>
+    <rosparam file="$(find chi_sim)/config/robot0/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot0/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot0/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot0/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot0/base_local_planner_params.yaml" command="load"/>
+  </node>
+
+    <node pkg="move_base" type="move_base" ns="robot_brain_1" respawn="false" name="move_base" output="screen">
+    <remap from="map" to="/map" />
+
+    <rosparam file="$(find chi_sim)/config/robot1/navfn_params.yaml" command="load"/>
+    <rosparam file="$(find chi_sim)/config/robot1/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot1/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot1/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot1/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot1/base_local_planner_params.yaml" command="load"/>
+  </node>
+
+    <node pkg="move_base" type="move_base" ns="robot_brain_2" respawn="false" name="move_base" output="screen">
+    <remap from="map" to="/map" />
+
+    <rosparam file="$(find chi_sim)/config/robot2/navfn_params.yaml" command="load"/>
+    <rosparam file="$(find chi_sim)/config/robot2/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot2/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot2/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot2/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot2/base_local_planner_params.yaml" command="load"/>
+  </node>
+
+    <node pkg="move_base" type="move_base" ns="robot_brain_3" respawn="false" name="move_base" output="screen">
+    <remap from="map" to="/map" />
+
+    <rosparam file="$(find chi_sim)/config/robot3/navfn_params.yaml" command="load"/>
+    <rosparam file="$(find chi_sim)/config/robot3/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot3/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot3/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot3/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot3/base_local_planner_params.yaml" command="load"/>
+  </node>
+
+    <node pkg="move_base" type="move_base" ns="robot_brain_4" respawn="false" name="move_base" output="screen">
+    <remap from="map" to="/map" />
+
+    <rosparam file="$(find chi_sim)/config/robot4/navfn_params.yaml" command="load"/>
+    <rosparam file="$(find chi_sim)/config/robot4/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot4/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot4/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot4/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot4/base_local_planner_params.yaml" command="load"/>
+  </node>
+
+    <node pkg="move_base" type="move_base" ns="robot_brain_5" respawn="false" name="move_base" output="screen">
+    <remap from="map" to="/map" />
+
+    <rosparam file="$(find chi_sim)/config/robot5/navfn_params.yaml" command="load"/>
+    <rosparam file="$(find chi_sim)/config/robot5/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot5/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find chi_sim)/config/robot5/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot5/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find chi_sim)/config/robot5/base_local_planner_params.yaml" command="load"/>
+  </node>
+
+
+</launch>

@@ -1,0 +1,7 @@
+image: robots.png
+resolution: 0.025
+origin: [-18.225, -12.4, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+
