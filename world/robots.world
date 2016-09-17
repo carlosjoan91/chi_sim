@@ -43,7 +43,7 @@ map(
 atrvjr(
   name "robot_brain_1"
   color "red"
-  pose [-14 0.6 0.000 0.000]
+  pose [0 10 0.000 -90.000]
   sick_laser( )
   urg_laser( )
   #atrv_ptz ()
@@ -53,7 +53,7 @@ atrvjr(
 atrvjr(
   name "robot_brain_2"
   color "red" 
-  pose [10.5 -0.6 0.000 180.000]
+  pose [1 10 0.000 -90.000]
   sick_laser( )
   urg_laser( )
   #atrv_ptz ()
@@ -62,7 +62,7 @@ atrvjr(
 atrvjr(
   name "robot_brain_3"
   color "red"
-  pose [-8 6 0.000 -90.000]
+  pose [2 10 0.000 -90.000]
   sick_laser( )
   urg_laser( )
   #atrv_ptz ()
@@ -71,7 +71,7 @@ atrvjr(
 atrvjr(
   name "robot_brain_4"
   color "red"
-  pose [-14 -0.6 0.000 0.000]
+  pose [0 8.5 0.000 -90.000]
   sick_laser( )
   urg_laser( )
   #atrv_ptz ()
@@ -80,7 +80,7 @@ atrvjr(
 atrvjr(
   name "robot_brain_5"
   color "red"
-  pose [10.5 0.6 0.000 180.000]
+  pose [1 8.5 0.000 -90.000]
   sick_laser( )
   urg_laser( )
   #atrv_ptz ()
@@ -89,7 +89,7 @@ atrvjr(
 atrvjr(
   name "robot_brain_6"
   color "red"
-  pose [6 -6 0.000 90.000]
+  pose [2 8.5 0.000 -90.000]
   sick_laser( )
   urg_laser( )
   #atrv_ptz ()
